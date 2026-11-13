@@ -126,7 +126,6 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               enlarge
               src={post.metadata.image}
               alt={post.metadata.title}
-              aspectRatio="16/9"
               priority
               sizes="(min-width: 768px) 100vw, 768px"
               border="neutral-alpha-weak"

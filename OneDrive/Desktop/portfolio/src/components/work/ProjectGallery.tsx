@@ -49,11 +49,11 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         ))}
       </div>
 
-      {/* All images stay side by side in a single responsive row, completely unclipped */}
+      {/* Keeps all images side by side on both desktop and mobile viewports */}
       <Flex
         wrap
         horizontal="center"
-        gap="16"
+        gap="12"
         fillWidth
       >
         {images.map((src, idx) => {
@@ -62,9 +62,9 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
             <div
               key={`${idx}-image`}
               style={{
-                flex: "1 1 220px",
-                maxWidth: isPortrait ? "260px" : "480px",
-                minWidth: "180px",
+                flex: "1 1 140px",
+                maxWidth: isPortrait ? "240px" : "480px",
+                minWidth: "120px",
               }}
             >
               <Media
