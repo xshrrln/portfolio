@@ -29,15 +29,23 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
 
   if (!images || images.length === 0) return null;
 
+  const portraitIndices = images
+    .map((_, idx) => idx)
+    .filter((idx) => orientations[idx] === "portrait");
+
+  const landscapeIndices = images
+    .map((_, idx) => idx)
+    .filter((idx) => orientations[idx] !== "portrait");
+
   return (
     <Flex
       direction="column"
       horizontal="center"
-      gap="16"
+      gap="24"
       fillWidth
       marginY="24"
     >
-      {/* Hidden preloader to detect natural image aspect ratios */}
+      {/* Hidden preloader to detect natural image dimensions */}
       <div style={{ display: "none" }} aria-hidden="true">
         {images.map((src, idx) => (
           <img
@@ -49,36 +57,53 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         ))}
       </div>
 
-      {/* Keeps all images side by side on both desktop and mobile viewports */}
-      <Flex
-        wrap
-        horizontal="center"
-        gap="12"
-        fillWidth
-      >
-        {images.map((src, idx) => {
-          const isPortrait = orientations[idx] === "portrait";
-          return (
+      {/* Portrait Images (e.g., Higa mobile app screenshots): Side by side on both mobile & desktop */}
+      {portraitIndices.length > 0 && (
+        <Flex
+          wrap
+          horizontal="center"
+          gap="16"
+          fillWidth
+        >
+          {portraitIndices.map((idx) => (
             <div
-              key={`${idx}-image`}
+              key={`${idx}-portrait`}
               style={{
-                flex: "1 1 140px",
-                maxWidth: isPortrait ? "240px" : "480px",
-                minWidth: "120px",
+                flex: "1 1 180px",
+                maxWidth: "280px",
+                minWidth: "140px",
               }}
             >
               <Media
                 enlarge
                 radius="m"
-                aspectRatio={isPortrait ? "9 / 16" : "16 / 9"}
-                src={src}
+                src={images[idx]}
                 alt={`${title} detail ${idx + 1}`}
-                sizes="(max-width: 768px) 50vw, 400px"
+                sizes="(max-width: 768px) 50vw, 280px"
               />
             </div>
-          );
-        })}
-      </Flex>
+          ))}
+        </Flex>
+      )}
+
+      {/* Landscape / Horizontal Images (e.g., COT Inventory): Stacked vertically on separate lines */}
+      {landscapeIndices.map((idx) => (
+        <div
+          key={`${idx}-landscape`}
+          style={{
+            width: "100%",
+            maxWidth: "760px",
+          }}
+        >
+          <Media
+            enlarge
+            radius="m"
+            src={images[idx]}
+            alt={`${title} detail ${idx + 1}`}
+            sizes="(max-width: 768px) 100vw, 760px"
+          />
+        </div>
+      ))}
     </Flex>
   );
 };
