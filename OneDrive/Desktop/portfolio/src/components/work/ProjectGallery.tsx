@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Media, Flex } from "@once-ui-system/core";
 
 interface ProjectGalleryProps {
   images: string[];
@@ -28,98 +29,56 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
 
   if (!images || images.length === 0) return null;
 
-  const portraitIndices = images
-    .map((_, idx) => idx)
-    .filter((idx) => orientations[idx] === "portrait");
-
-  const landscapeIndices = images
-    .map((_, idx) => idx)
-    .filter((idx) => orientations[idx] !== "portrait");
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "16px",
-        width: "100%",
-        margin: "2rem 0",
-      }}
+    <Flex
+      direction="column"
+      horizontal="center"
+      gap="16"
+      fillWidth
+      marginY="24"
     >
-      {/* Portrait Images: Side by side in a single row with a small gap */}
-      {portraitIndices.length > 0 && (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "nowrap",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "8px",
-            width: "100%",
-            overflowX: "auto",
-          }}
-        >
-          {portraitIndices.map((idx) => (
+      {/* Hidden preloader to detect natural image aspect ratios */}
+      <div style={{ display: "none" }} aria-hidden="true">
+        {images.map((src, idx) => (
+          <img
+            key={idx}
+            src={src}
+            alt=""
+            onLoad={(e) => handleImageLoad(idx, e)}
+          />
+        ))}
+      </div>
+
+      {/* All images stay side by side in a single responsive row, completely unclipped */}
+      <Flex
+        wrap
+        horizontal="center"
+        gap="16"
+        fillWidth
+      >
+        {images.map((src, idx) => {
+          const isPortrait = orientations[idx] === "portrait";
+          return (
             <div
-              key={`${idx}-portrait`}
+              key={`${idx}-image`}
               style={{
-                flex: portraitIndices.length > 1 ? "1 1 0%" : "0 1 320px",
-                minWidth: 0,
-                maxWidth: portraitIndices.length > 1 ? "220px" : "320px",
-                borderRadius: "10px",
-                overflow: "hidden",
-                backgroundColor: "rgba(0, 0, 0, 0.03)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                flex: "1 1 220px",
+                maxWidth: isPortrait ? "260px" : "480px",
+                minWidth: "180px",
               }}
             >
-              <img
-                src={images[idx]}
+              <Media
+                enlarge
+                radius="m"
+                aspectRatio={isPortrait ? "9 / 16" : "16 / 9"}
+                src={src}
                 alt={`${title} detail ${idx + 1}`}
-                onLoad={(e) => handleImageLoad(idx, e)}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  maxHeight: "380px",
-                  objectFit: "contain",
-                  display: "block",
-                }}
+                sizes="(max-width: 768px) 50vw, 400px"
               />
             </div>
-          ))}
-        </div>
-      )}
-
-      {/* Landscape / Wide Images: Stacked vertically on their own separate lines */}
-      {landscapeIndices.map((idx) => (
-        <div
-          key={`${idx}-landscape`}
-          style={{
-            width: "100%",
-            maxWidth: "760px",
-            borderRadius: "12px",
-            overflow: "hidden",
-            backgroundColor: "rgba(0, 0, 0, 0.03)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <img
-            src={images[idx]}
-            alt={`${title} detail ${idx + 1}`}
-            onLoad={(e) => handleImageLoad(idx, e)}
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "contain",
-              display: "block",
-            }}
-          />
-        </div>
-      ))}
-    </div>
+          );
+        })}
+      </Flex>
+    </Flex>
   );
 };

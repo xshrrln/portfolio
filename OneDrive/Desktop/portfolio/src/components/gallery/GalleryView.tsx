@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Media, MasonryGrid, Text, Flex } from "@once-ui-system/core";
+import { Media, Text, Flex } from "@once-ui-system/core";
 import { gallery } from "@/resources";
 
 export default function GalleryView() {
@@ -32,21 +32,53 @@ export default function GalleryView() {
         A collection of my personal artworks—featuring graphic designs, traditional sketches using pens and graphite pencils, and pieces created with acrylic markers. All artworks are based on references from Pinterest and the internet.
       </Text>
 
-      {/* 1 column on mobile, 2 columns on small screens, 4 columns on desktop */}
-      <MasonryGrid columns={4} s={{ columns: 1 }} xs={{ columns: 1 }}>
-        {allImages.map((image, index) => (
-          <Media
-            enlarge
-            priority={index < 10}
-            sizes="(max-width: 560px) 100vw, 25vw"
-            key={index}
-            radius="m"
-            aspectRatio={image.orientation === "horizontal" ? "16 / 9" : "3 / 4"}
-            src={image.src}
-            alt={image.alt}
-          />
-        ))}
-      </MasonryGrid>
+      {/* 2-column grid on mobile/small screens, 4 columns on desktop, perfectly aligned tops */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "16px",
+          width: "100%",
+        }}
+        className="gallery-grid-responsive"
+      >
+        {allImages.map((image, index) => {
+          const isHorizontal = image.orientation === "horizontal";
+          return (
+            <div
+              key={index}
+              style={{
+                gridColumn: isHorizontal ? "span 4" : "span 1",
+                width: "100%",
+              }}
+            >
+              <Media
+                enlarge
+                priority={index < 10}
+                sizes="(max-width: 560px) 50vw, 25vw"
+                radius="m"
+                aspectRatio={isHorizontal ? "16 / 9" : "3 / 4"}
+                src={image.src}
+                alt={image.alt}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .gallery-grid-responsive {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .gallery-grid-responsive > div {
+            grid-column: span 1 !important;
+          }
+          .gallery-grid-responsive > div:nth-child(odd) {
+            grid-column: span 1 !important;
+          }
+        }
+      `}</style>
     </Flex>
   );
 }
