@@ -1,4 +1,3 @@
-
 import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
 import { Line, Row, Text } from "@once-ui-system/core";
 
@@ -10,7 +9,16 @@ const person: Person = {
   avatar: "/images/avatar.png",
   email: "sherraleneedusma@gmail.com",
   location: "Asia/Manila",
-  languages: ["English", "Filipino"],
+  languages: [
+    "English",
+    "Filipino",
+    "Email: sherraleneedusma@gmail.com",
+    "Phone: (+63) 9465599816",
+    "LinkedIn: linkedin.com/in/sherraleneedusma",
+    "GitHub: github.com/xshrrln",
+    "Facebook: facebook.com/xshrrln",
+    "Instagram: instagram.com/xshrrln",
+  ],
   locale: "en",
 };
 
@@ -20,20 +28,7 @@ const newsletter: Newsletter = {
   description: <>Updates about my creative work and projects.</>,
 };
 
-const social: Social = [
-  {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/xshrrln",
-    essential: true,
-  },
-  {
-    name: "Email",
-    icon: "email",
-    link: `mailto:${person.email}`,
-    essential: true,
-  },
-];
+const social: Social = [];
 
 const home: Home = {
   path: "/",
@@ -105,8 +100,44 @@ const about: About = {
   },
   technical: {
     display: true,
-    title: "Interests & Skills",
+    title: "Certificates & Skills",
     skills: [
+      {
+        title: "CCNA: Switching, Routing, and Wireless Essentials",
+        description: <>Cisco Networking Academy • Credly Badge ID: 32406642-c714-4a23-86ee-2c2cf1dd1f79</>,
+        tags: [
+          {
+            name: "Networking",
+            icon: "globe",
+          },
+        ],
+        images: [
+          {
+            src: "/images/certificates/CCNA_certificate.jpg",
+            alt: "CCNA Certificate",
+            width: 42,
+            height: 28,
+          },
+        ],
+      },
+      {
+        title: "Introduction to AI Literacy and Responsible Use",
+        description: <>ACHIEVE Program (PQF Level 6)</>,
+        tags: [
+          {
+            name: "AI Literacy",
+            icon: "document",
+          },
+        ],
+        images: [
+          {
+            src: "/images/certificates/AI-Literacy_certificate.jpg",
+            alt: "AI Literacy Certificate",
+            width: 42,
+            height: 28,
+          },
+        ],
+      },
       {
         title: "UI/UX Design",
         description: <>I enjoy crafting user-centered interfaces, organizing layouts, and creating experiences that feel intuitive and polished.</>,
@@ -131,27 +162,8 @@ const about: About = {
             icon: "globe",
           },
           {
-            name: "Design",
-            icon: "document",
-          },
-          {
             name: "JavaScript",
             icon: "javascript",
-          },
-        ],
-        images: [],
-      },
-      {
-        title: "Traditional Sketches & Creative Expression",
-        description: <>I work through visual storytelling, hand-drawn sketches, and creative exploration as part of how I think and design.</>,
-        tags: [
-          {
-            name: "Sketches",
-            icon: "gallery",
-          },
-          {
-            name: "Creative",
-            icon: "book",
           },
         ],
         images: [],
