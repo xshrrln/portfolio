@@ -245,12 +245,12 @@ export default function About() {
                             key={index}
                             border="neutral-medium"
                             radius="m"
-                            style={{ maxWidth: "440px", width: "100%" }}
+                            style={{ maxWidth: "560px", width: "100%" }}
                           >
                             <Media
                               enlarge
                               radius="m"
-                              sizes="440px"
+                              sizes="560px"
                               alt={image.alt}
                               src={image.src}
                             />
@@ -319,12 +319,12 @@ export default function About() {
                             key={index}
                             border="neutral-medium"
                             radius="m"
-                            style={{ maxWidth: "440px", width: "100%" }}
+                            style={{ maxWidth: "560px", width: "100%" }}
                           >
                             <Media
                               enlarge
                               radius="m"
-                              sizes="440px"
+                              sizes="560px"
                               alt={image.alt}
                               src={image.src}
                             />
