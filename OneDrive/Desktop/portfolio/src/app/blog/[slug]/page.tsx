@@ -7,7 +7,6 @@ import {
   Column,
   Heading,
   HeadingNav,
-  Icon,
   Row,
   Text,
   SmartLink,
@@ -53,7 +52,6 @@ export async function generateMetadata({
     image: post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
     path: `${blog.path}/${post.slug}`,
   });
-  // Meta.generate writes a canonical only alongside language alternates.
   return { ...metadata, alternates: { canonical: metadata.openGraph.url } };
 }
 
@@ -69,15 +67,9 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
     notFound();
   }
 
-  // Password-protected: render nothing without access (RouteGuard shows the form).
   if (!(await canViewPath(`${blog.path}/${post.slug}`))) {
     return null;
   }
-
-  const avatars =
-    post.metadata.team?.map((person) => ({
-      src: person.avatar,
-    })) || [];
 
   return (
     <Row fillWidth>
@@ -131,6 +123,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
           </Row>
           {post.metadata.image && (
             <Media
+              enlarge
               src={post.metadata.image}
               alt={post.metadata.title}
               aspectRatio="16/9"

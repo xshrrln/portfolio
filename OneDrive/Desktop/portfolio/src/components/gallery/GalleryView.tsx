@@ -28,18 +28,17 @@ export default function GalleryView() {
 
   return (
     <Flex direction="column" gap="l">
-      {/* Intro text explaining your artworks and references */}
       <Text variant="body-default-m" onBackground="neutral-weak" style={{ marginBottom: "0.5rem", lineHeight: "1.6" }}>
         A collection of my personal artworks—featuring graphic designs, traditional sketches using pens and graphite pencils, and pieces created with acrylic markers. All artworks are based on references from Pinterest and the internet.
       </Text>
 
-      {/* 4-column gallery grid */}
-      <MasonryGrid columns={4} s={{ columns: 2 }}>
+      {/* 1 column on mobile, 2 columns on small screens, 4 columns on desktop */}
+      <MasonryGrid columns={4} s={{ columns: 1 }} xs={{ columns: 1 }}>
         {allImages.map((image, index) => (
           <Media
             enlarge
             priority={index < 10}
-            sizes="(max-width: 560px) 50vw, 25vw"
+            sizes="(max-width: 560px) 100vw, 25vw"
             key={index}
             radius="m"
             aspectRatio={image.orientation === "horizontal" ? "16 / 9" : "3 / 4"}

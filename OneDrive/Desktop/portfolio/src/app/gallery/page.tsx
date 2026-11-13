@@ -1,7 +1,7 @@
 import { Flex, Meta, Schema } from "@once-ui-system/core";
 import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
-import { HiddenGalleryCreator } from "./HiddenGalleryCreator"; // Import your creator modal
+import { HiddenGalleryCreator } from "./HiddenGalleryCreator";
 
 export async function generateMetadata() {
   const metadata = Meta.generate({
@@ -30,11 +30,7 @@ export default function Gallery() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      
-      {/* This enables the triple-click "Gallery" navbar trigger and upload modal */}
       <HiddenGalleryCreator title={gallery.title} />
-
-      {/* Your standard gallery layout */}
       <GalleryView />
     </Flex>
   );
